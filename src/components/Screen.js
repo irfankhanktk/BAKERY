@@ -2,7 +2,7 @@ import React from "react";
 // geeft informatie van het toestel dat dit script gebruikt console.log(Constants);
 //import Constants from "expo-constants";
 import { StyleSheet, View, Text } from "react-native";
-import colors from "../config/colors";
+import colors from "../services/colors";
 //https://github.com/APSL/react-native-keyboard-aware-scroll-view
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
@@ -14,7 +14,7 @@ const Screen = ({ children, title }) => {
       <View style={styles.titleView}>
         <Text style={styles.title}>{title}</Text>
       </View>
-      <KeyboardAwareScrollView style={styles.scrollView}>
+      <KeyboardAwareScrollView contentContainerStyle={styles.scrollView}>
         {children}
       </KeyboardAwareScrollView>
     </View>

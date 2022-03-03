@@ -9,7 +9,7 @@ import {
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 
-import colors from "../config/colors";
+import colors from "../services/colors";
 
 const ImageInput = ({ imageURL, style }) => {
   console.log(imageURL);

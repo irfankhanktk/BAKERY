@@ -1,7 +1,7 @@
 import React from "react";
 import { Text } from "react-native";
 
-import defailtStyles from "../config/styles";
+import defailtStyles from "../services/styles";
 
 function AppText({ children, style, ...otherProps }) {
   return (

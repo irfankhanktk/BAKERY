@@ -3,9 +3,13 @@ import thunk from "redux-thunk";
 import { composeWithDevTools } from "@redux-devtools/extension";
 
 import authReducer from "./reducers/authReducer";
+import categoriesReducer from "./reducers/categories-reducer";
+import productReducer from "./reducers/product-reducer";
 
 const rootReducer = combineReducers({
   auth: authReducer,
+  categories:categoriesReducer,
+  product:productReducer,
 });
 
 const middleware = composeWithDevTools(applyMiddleware(thunk));

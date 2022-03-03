@@ -7,7 +7,9 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import AppTouchableOpacity from "../../components/AppTouchableOpacity";
 
 import ScreenList from "../../components/ScreenList";
-import colors from "../../config/colors";
+import colors from "../../services/colors";
+import { connect } from 'react-redux';
+import BAKERY_API from "../../redux/actions/api/api-calls";
 
 const windowWidth = Dimensions.get("window").width;
 
@@ -69,33 +71,43 @@ const arr = [
   },
 ];
 
-const ProductScreen = () => {
+const ProductScreen = (props) => {
   let numColumns = 1;
+  const { fetchProducts, products } = props
   const navigation = useNavigation();
+  console.log('products:::', products);
+  React.useEffect(() => {
+    (async () => {
+      try {
+        await fetchProducts();
+      } catch (error) {
+        console.log('error:', error);
+      }
+    })()
+  }, [])
+
+
   return (
     <ScreenList title={"Products"}>
       <FlatList
         numColumns={numColumns}
-        data={arr.sort((a, b) => a.category.localeCompare(b.category))}
-        keyExtractor={(item) => item.id.toString()}
+        data={products}
+        keyExtractor={(item,index) => index?.toString()}
         renderItem={({ item }) => {
           return (
             <>
               <TouchableOpacity
-                onPress={() => navigation.navigate("Categorie")}
+                onPress={() => navigation.navigate("ProductInfoScreen",{item})}
               >
                 <View style={styles.container}>
-                  <Image source={{ uri: item.image }} style={styles.image} />
+                  <Image source={{ uri: item?.image?.includes('http') ? item?.image : "https://www.leukerecepten.nl/wp-content/uploads/2020/09/kinder-bueno-taart_b.jpg" }}  style={styles.image} />
                   <View style={styles.test}>
                     <View>
-                      <Text>{item.title}</Text>
-                      <Text>€ {item.price}</Text>
-                      <View>
-                        <Text>sdfqsfdqsdqsdd</Text>
-                      </View>
+                      <Text>{item?.name}</Text>
+                      <Text>€ {item?.price}</Text>
                     </View>
                     <TouchableOpacity
-                      onPress={() => navigation.navigate("ProductInfoScreen")}
+                      onPress={() => navigation.navigate("ProductInfoScreen",{item})}
                       style={styles.touchableOpacity}
                     >
                       <Icon name="info-circle" style={styles.icon} size={20} />
@@ -111,7 +123,17 @@ const ProductScreen = () => {
   );
 };
 
-export default ProductScreen;
+// export default ProductScreen;
+// export default CategoryScreen;
+const mapStateToProps = (store) => ({
+  products: store.product.products,
+  // user_info: store.state.user_info,
+});
+
+const mapDispatchToProps = {
+  fetchProducts: () => BAKERY_API.fetchProducts(),
+};
+export default connect(mapStateToProps, mapDispatchToProps)(ProductScreen);
 
 const styles = StyleSheet.create({
   container: {

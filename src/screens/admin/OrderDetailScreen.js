@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import colors from "../../config/colors";
+import colors from "../../services/colors";
 import ScreenList from "../../components/ScreenList";
 
 const arr = [

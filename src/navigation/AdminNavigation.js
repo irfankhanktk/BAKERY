@@ -12,7 +12,7 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import LogoTitle from "../components/LogoTitle";
-import colors from "../config/colors";
+import colors from "../services/colors";
 import OrdersScreen from "../screens/admin/OrdersScreen";
 import CategoryScreen from "../screens/admin/CategoryScreen";
 import ProductsScreen from "../screens/admin/ProductsScreen";

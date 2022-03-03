@@ -5,7 +5,7 @@ import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-import colors from "../config/colors";
+import colors from "../services/colors";
 
 const ClientContent = ({ props }) => {
   const navigation = useNavigation();

@@ -4,7 +4,7 @@ import * as Yup from "yup";
 
 import Screen from "../../components/Screen";
 import { AppForm, AppFormField, SubmitButton } from "../../components/forms";
-import colors from "../../config/colors";
+import colors from "../../services/colors";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()

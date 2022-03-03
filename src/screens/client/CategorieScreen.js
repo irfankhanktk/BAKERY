@@ -4,9 +4,12 @@ import { Button } from "react-native";
 import { FlatList, Image, StyleSheet, Text, View } from "react-native";
 import { Dimensions } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { connect } from "react-redux";
 
 import ScreenList from "../../components/ScreenList";
-import colors from "../../config/colors";
+import BAKERY_API from "../../redux/actions/api/api-calls";
+import colors from "../../services/colors";
+import { mvs } from "../../services/metrices";
 
 const windowWidth = Dimensions.get("window").width;
 
@@ -27,56 +30,76 @@ const arr = [
 ];
 
 //navigation meegeven voor drawer
-const CategoryScreen = () => {
+const CategoryScreen = (props) => {
+  const { fetchCategories, categories } = props
   const navigation = useNavigation();
-  let numColumns = 2;
+  console.log('categories:::', categories);
+  React.useEffect(() => {
+    (async () => {
+      try {
+        await fetchCategories();
+      } catch (error) {
+        console.log('error:', error);
+      }
+    })()
+  }, [])
   return (
-    <ScreenList title={"Kies een categorie"}>
-      <FlatList
-        numColumns={numColumns}
-        data={arr.sort((a, b) => a.category.localeCompare(b.category))}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => {
-          return (
-            <>
-              <View style={styles.info}>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate("ProductScreen")}
-                >
-                  <Image source={{ uri: item.image }} style={styles.image} />
-                  <Text style={styles.text}>{item.category}</Text>
-                </TouchableOpacity>
-              </View>
-            </>
-          );
-        }}
-      />
+    <ScreenList title={"Categories"}>
+      <View style={{ flex: 1, paddingTop: mvs(10) }}>
+        <FlatList
+          numColumns={2}
+          contentContainerStyle={{ alignItems: 'center' }}
+          data={categories}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item }) => {
+            return (
+              <>
+                <View style={styles.info}>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("ProductScreen")}
+                  >
+                    <View style={{flexDirection:'row',justifyContent:'space-between',paddingHorizontal:mvs(5)}}>
+                      <Text style={styles.text}>{item?.name}</Text>
+                      <Text style={styles.text}>{item?.__v===0?'0':item?.__v}</Text>
+                    </View>
+                    <Image source={{ uri: item?.image?.includes('http') ? item?.image : "https://www.leukerecepten.nl/wp-content/uploads/2020/09/kinder-bueno-taart_b.jpg" }} style={styles.image} />
+                  </TouchableOpacity>
+                </View>
+              </>
+            );
+          }}
+        />
+      </View>
     </ScreenList>
   );
 };
 
-export default CategoryScreen;
+// export default CategoryScreen;
+const mapStateToProps = (store) => ({
+  categories: store.categories.categories,
+  // user_info: store.state.user_info,
+});
 
+const mapDispatchToProps = {
+  fetchCategories: (user_id) => BAKERY_API.fetchCategories(user_id),
+};
+export default connect(mapStateToProps, mapDispatchToProps)(CategoryScreen);
 const styles = StyleSheet.create({
   info: {
-    width: windowWidth - 220,
-    backgroundColor: colors.frame,
-    marginLeft: 5,
-    marginRight: 5,
-    marginTop: 10,
-    paddingBottom: 35,
-    borderRadius: 20,
-    borderColor: colors.borderFrame,
-    borderWidth: 1,
+    width: '49%',
+    marginHorizontal: mvs(2),
+    marginBottom: mvs(10),
   },
   image: {
     borderRadius: 20,
-    margin: 5,
+    // marginHorizontal: 5,
     borderColor: colors.borderImage,
     borderWidth: 3,
-    alignSelf: "center",
-    height: "75%",
-    width: "95%",
+    height: mvs(120),
+    width: '100%',
+    // alignSelf: "center",
+    // height: "75%",
+    // width: "95%",
   },
   text: {
     lineHeight: 20,

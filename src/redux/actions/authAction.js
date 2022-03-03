@@ -3,7 +3,7 @@ export const REGISTER_USER_FAIL = "REGISTER_USER_FAIL";
 export const LOGIN_USER_SUCCESS = "LOGIN_USER_SUCCESS";
 export const LOGIN_USER_FAIL = "LOGIN_USER_FAIL";
 
-const BASE_URL = "http:/192.168.1.210:4000";
+const BASE_URL = "https://order-node-server.herokuapp.com";
 // const BASE_URL = "http:/192.168.43.68:4000";
 
 export const registerUser = (authData) => {
@@ -49,7 +49,7 @@ export const loginUser = (authData) => {
 
 
   return async (dispatch) => {
-    console.log("dispatch",dispatch);
+    console.log("url",`${BASE_URL}/api/users/login`);
     // logic to make a post to LOGIN the user
     const result = await fetch(`${BASE_URL}/api/users/login`, {
       method: "POST",

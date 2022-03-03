@@ -1,0 +1,3 @@
+export const SET_LOGOUT='SET_LOGOUT'
+export const SET_CATEGORIES='SET_CATEGORIES'
+export const SET_PRODUCTS='SET_PRODUCTS'

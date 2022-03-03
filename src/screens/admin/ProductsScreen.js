@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { FlatList, StyleSheet, Text, View, Image, Alert } from "react-native";
 import { Dimensions } from "react-native";
 import AppButton from "../../components/AppButton";
-import colors from "../../config/colors";
+import colors from "../../services/colors";
 import ScreenList from "../../components/ScreenList";
 import { useNavigation } from "@react-navigation/native";
 import ImageInput from "../../components/ImageInput";

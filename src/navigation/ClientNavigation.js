@@ -6,7 +6,7 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 
 import ClientContent from "./ClientContent";
 import LogoTitle from "../components/LogoTitle";
-import colors from "../config/colors";
+import colors from "../services/colors";
 
 import CategorieScreen from "../screens/client/CategorieScreen";
 import InfoScreen from "../screens/client/InfoScreen";
@@ -14,6 +14,7 @@ import NewsFeed from "../screens/client/NewsFeed";
 import ProductInfoScreen from "../screens/client/ProductInfoScreen";
 import Productscreen from "../screens/client/ProductScreen";
 import Winkelmandje from "../screens/client/Winkelmandje";
+import ShoppingCart from "../screens/client/shopping-cart";
 
 const Drawer = createDrawerNavigator();
 
@@ -42,11 +43,12 @@ const ClientNavigation = () => {
       }}
     >
       <Drawer.Screen name="Categorie" component={CategorieScreen} />
-      <Drawer.Screen name="Winkelmandje" component={Winkelmandje} />
+      <Drawer.Screen name="Winkelmandjehh" component={Winkelmandje} />
+      <Drawer.Screen name="Winkelmandje" component={ShoppingCart} />
       <Drawer.Screen name="NieuwsFeed" component={NewsFeed} />
       <Drawer.Screen name="InfoScreen" component={InfoScreen} />
       <Drawer.Screen name="ProductInfoScreen" component={ProductInfoScreen} />
-      <Drawer.Screen name="Productscreen" component={Productscreen} />
+      <Drawer.Screen name="ProductScreen" component={Productscreen} />
     </Drawer.Navigator>
   );
 };

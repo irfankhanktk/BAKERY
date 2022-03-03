@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import defaultStyles from "../config/styles";
+import defaultStyles from "../services/styles";
 import AppText from "./AppText";
 import ScreenList from "./ScreenList";
 import PickerItem from "./PickerItem";

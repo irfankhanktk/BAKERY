@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
 import Icon from "react-native-vector-icons/FontAwesome5";
-import colors from "../config/colors";
+import colors from "../services/colors";
 
 const AppTouchableOpacity = ({ info, onPress }) => {
   return (

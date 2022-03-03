@@ -4,7 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AppForm, AppFormField } from "../../components/forms";
 
 import ScreenList from "../../components/ScreenList";
-import colors from "../../config/colors";
+import colors from "../../services/colors";
 import AppButton from "../../components/AppButton";
 import { useNavigation } from "@react-navigation/native";
 import ImageInput from "../../components/ImageInput";
