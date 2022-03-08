@@ -73,20 +73,27 @@ const arr = [
 
 const ProductScreen = (props) => {
   let numColumns = 1;
-  const { fetchProducts, products } = props
+  const { fetchProducts, products,user } = props;
   const navigation = useNavigation();
   console.log('products:::', products);
+  console.log('user:::', user);
   React.useEffect(() => {
     (async () => {
       try {
-        await fetchProducts();
+        await fetchProducts(props?.route?.params?.category_id,);
       } catch (error) {
         console.log('error:', error);
       }
     })()
   }, [])
 
-
+ const onPressHeart=async()=>{
+   try {
+    //  const res = await 
+   } catch (error) {
+     
+   }
+ }
   return (
     <ScreenList title={"Products"}>
       <FlatList
@@ -106,6 +113,12 @@ const ProductScreen = (props) => {
                       <Text>{item?.name}</Text>
                       <Text>€ {item?.price}</Text>
                     </View>
+                    <TouchableOpacity
+                      onPress={onPressHeart}
+                      style={styles.touchableOpacity}
+                    >
+                      <Icon name="heart" color={colors.red} style={styles.icon} size={20} />
+                    </TouchableOpacity>
                     <TouchableOpacity
                       onPress={() => navigation.navigate("ProductInfoScreen",{item})}
                       style={styles.touchableOpacity}
@@ -127,11 +140,11 @@ const ProductScreen = (props) => {
 // export default CategoryScreen;
 const mapStateToProps = (store) => ({
   products: store.product.products,
-  // user_info: store.state.user_info,
+  user: store.auth.user,
 });
 
 const mapDispatchToProps = {
-  fetchProducts: () => BAKERY_API.fetchProducts(),
+  fetchProducts: (category_id,email) => BAKERY_API.fetchProducts(category_id,email),
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ProductScreen);
 

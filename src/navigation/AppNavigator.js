@@ -14,6 +14,7 @@ import ProductResetScreen from "../screens/admin/ProductResetScreen";
 import SettingScreen from "../screens/admin/SettingScreen";
 import InfoMessageScreen from "../screens/admin/InfoMessagesScreen";
 import NewsFeedScreen from "../screens/admin/NewsFeedScreen";
+import SplashScreen from "../screens/SplashScreen";
 
 // import HomeScreen from "../../screens/HomeScreen";
 // import AdminScreen from "../../screens/AdminSceen";
@@ -23,6 +24,12 @@ const AppNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+          
+      <Stack.Screen
+          name="Splash"
+          component={SplashScreen}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="Login"
           component={LoginScreen}

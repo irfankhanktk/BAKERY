@@ -45,9 +45,11 @@ const LoginScreen = () => {
             .then(async (result) => {
               if (result.success) {
                 try {
+                  await AsyncStorage.setItem("user", JSON.stringify(values));
                   await AsyncStorage.setItem("token", result.token);
                   const token = await AsyncStorage.getItem("token");
                   const decode = jwtDecode(token);
+                
                   const role = decode.role;
                   if (role === 0) {
                     navigation.navigate("ClientNavigation");

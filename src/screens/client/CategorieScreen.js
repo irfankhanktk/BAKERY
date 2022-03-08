@@ -56,7 +56,7 @@ const CategoryScreen = (props) => {
               <>
                 <View style={styles.info}>
                   <TouchableOpacity
-                    onPress={() => navigation.navigate("ProductScreen")}
+                    onPress={() => navigation.navigate("ProductScreen",{category_id:item?._id})}
                   >
                     <View style={{flexDirection:'row',justifyContent:'space-between',paddingHorizontal:mvs(5)}}>
                       <Text style={styles.text}>{item?.name}</Text>

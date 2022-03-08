@@ -6,14 +6,14 @@ import { urls } from "./api-urls";
 import moment from "moment";
 import SERVICES from "../../../services/common-services";
 
-const fetchProducts = () => {
+const fetchProducts = (category_id,email) => {
   return async (dispatch, getState) => {
     try {
       const response = await API_REQUESTS.getData(urls.product.products);
       console.log('res of products::', response?.data);
       dispatch({
-        type:Actions.SET_PRODUCTS,
-        payload:  response?.data,
+        type: Actions.SET_PRODUCTS,
+        payload: response?.data,
       });
     } catch (error) {
       throw new Error(SERVICES._returnError(error));
@@ -26,8 +26,8 @@ const fetchCategories = () => {
       const response = await API_REQUESTS.getData(urls.categories.get_all);
       console.log('res::', response?.data);
       dispatch({
-        type:Actions.SET_CATEGORIES,
-        payload:  response?.data,
+        type: Actions.SET_CATEGORIES,
+        payload: response?.data,
       });
     } catch (error) {
       throw new Error(SERVICES._returnError(error));
