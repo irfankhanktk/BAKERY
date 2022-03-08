@@ -13,7 +13,7 @@ export const urls={
         get_orders:'order',
     },
     product:{
-        products:'product/all_products/62044fe0bda1570cad074d78/gul@gmail.com',
+        products:'product/all_products/',
       
     },
     like:'like',

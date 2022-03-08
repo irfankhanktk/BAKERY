@@ -1,21 +1,26 @@
 import React from "react";
 import { FlatList, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { connect } from "react-redux";
 
 import Screen from "../../components/Screen";
+import BAKERY_API from "../../redux/actions/api/api-calls";
 import colors from "../../services/colors";
 import { mvs } from "../../services/metrices";
 const DetailsItem = ({ label = '', value = '' }) => (<View style={styles.info_container}>
   <Text style={styles.text}>{label}</Text>
   <Text style={{color:colors.primary}}>{value}</Text>
 </View>);
-const ShoppingCart = () => {
+const ShoppingCart = (props) => {
+
+  const {products,setProducts,user} = props;
+  
+  
+
+
   return <View style={{ flex: 1, backgroundColor: colors.white }}>
     <FlatList
       contentContainerStyle={{paddingHorizontal:mvs(20)}}
-      data={[
-        { name: 'cake', image: "https://www.leukerecepten.nl/wp-content/uploads/2020/09/kinder-bueno-taart_b.jpg" },
-        { name: 'Kulfa', image: "https://www.leukerecepten.nl/wp-content/uploads/2020/09/kinder-bueno-taart_b.jpg" }
-      ]}
+      data={products?.filter(x=>x.selected)}
       renderItem={({ item }) => (
         <View style={{ flexDirection: 'row', justifyContent: 'space-between',backgroundColor:colors.secondary,marginBottom:mvs(15),padding:mvs(15),borderRadius:mvs(20)}}>
           <View style={{width:'49%'}}>
@@ -23,8 +28,8 @@ const ShoppingCart = () => {
           </View>
           <View style={{width:'49%'}}>
             <DetailsItem label="Product Name" value={item?.name}/>
-            <DetailsItem label="Quantity" value={'5'}/>
-            <DetailsItem label="Unit Price" value={'50'}/>
+            <DetailsItem label="Quantity" value={item?.qty}/>
+            <DetailsItem label="Unit Price" value={item?.price}/>
           <TouchableOpacity style={styles.buuton}>
             <Text style={{color:colors.white}}>Remove</Text>
           </TouchableOpacity>
@@ -41,7 +46,17 @@ const ShoppingCart = () => {
   </View>;
 };
 
-export default ShoppingCart;
+const mapStateToProps = (store) => ({
+  products: store.product.products,
+  user: store.auth.user,
+});
+
+const mapDispatchToProps = {
+  fetchProducts: (category_id,email) => BAKERY_API.fetchProducts(category_id,email),
+  likeProduct: (product_id,email,bool,index) => BAKERY_API.likeProduct(product_id,email,bool,index),
+  setProducts: (produtcs) => BAKERY_API.setProducts(produtcs),
+};
+export default connect(mapStateToProps, mapDispatchToProps)(ShoppingCart);
 
 const styles = StyleSheet.create({
   container: {
