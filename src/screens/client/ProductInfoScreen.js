@@ -21,10 +21,11 @@ const ProductInfoScreen = (props) => {
   const onPressHeart=async()=>{
     try {
      const res=await likeProduct(item?._id,user?.email,item?.like_inf?.length>0?false:true,index);
-     if(item?.like_inf?.length>0){
+     console.log('res::::::::::::',res?.data);
+     if(res?.data?.message?.includes('Deleted')){
       setItem({...item,like_inf:[]});
      }else{
-      setItem({...item,like_inf:[res]});
+      setItem({...item,like_inf:[res?.data]});
      }
      
     } catch (error) {
@@ -58,7 +59,7 @@ const ProductInfoScreen = (props) => {
         if(is_increment){
           item.qty=item.qty?(item.qty+1):1;
         }else{
-          item.qty=item?.qty&&(item?.qty!==1)?(item.qty-1):1;
+          item.qty=item?.qty?(item.qty-1):item?.qty==0?0:1;
         }
       copy[index]=item;
      setProducts(copy);
@@ -97,12 +98,13 @@ const ProductInfoScreen = (props) => {
         </TouchableOpacity>
        
         <TouchableOpacity
+          disabled={item?.qty==1&&item.selected}
           onPress={()=>onQty(false)}
           // style={styles.touchableOpacity}
           >
           <Icon name="minus-circle" color={item?.selected ? colors.primary : colors.headerTitle} size={30} />
         </TouchableOpacity>
-        <Text style={{width:mvs(20),alignSelf:'center'}}>{item?.qty?item?.qty:1}</Text>
+        <Text style={{width:mvs(20),alignSelf:'center'}}>{item?.qty?item?.qty:0}</Text>
         <TouchableOpacity
           onPress={onQty}
           // style={styles.touchableOpacity}

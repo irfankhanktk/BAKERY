@@ -16,9 +16,9 @@ client.interceptors.request.use(
   async config => {
     // const token = await AsyncStorage.getItem('@token');
     config.headers = {
-      Accept: 'application/json',
+      Accept: 'application/json,*/*',
       'Cache-Control': 'no-cache',
-      'Content-Type': 'multipart/form-data, application/json',
+      'Content-Type': 'application/json',
     };
 
     config.params = config.params || {};

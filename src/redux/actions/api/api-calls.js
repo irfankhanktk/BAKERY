@@ -34,6 +34,20 @@ const fetchCategories = () => {
     }
   };
 };
+const postOrder = (payload) => {
+  return async (dispatch, getState) => {
+    try {
+      const response = await API_REQUESTS.postData(urls.order.order,payload);
+      console.log('res::', response?.data);
+      // dispatch({
+      //   type: Actions.SET_CATEGORIES,
+      //   payload: response?.data,
+      // });
+    } catch (error) {
+      throw new Error(SERVICES._returnError(error));
+    }
+  };
+};
 const setProducts = (products) => {
   return async (dispatch, getState) => {
     try {
@@ -88,6 +102,7 @@ const BAKERY_API = {
   fetchCategories,
   fetchProducts,
   likeProduct,
+  postOrder,
   // refreshToken,
 };
 

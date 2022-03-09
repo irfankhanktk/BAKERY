@@ -43,7 +43,7 @@ const ProductScreen = (props) => {
    
    }
  }
- const onPressHeart=async(index,callBack)=>{
+ const onPressHeart=async(product,index,callBack)=>{
    try {
     await likeProduct(product?._id,user?.email,product?.like_inf?.length>0?false:true,index);
     callBack('ok')

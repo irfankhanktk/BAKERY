@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text,TouchableOpacity, StyleSheet,Image } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import colors from '../../services/colors';
 import Icon from "react-native-vector-icons/FontAwesome5";
 const ProductItem = ({
@@ -12,47 +12,51 @@ const ProductItem = ({
     onPressHeart,
     onPressCart,
 }) => {
-     const [likeLoading,setLikeLoading]=React.useState(false);
+    const [likeLoading, setLikeLoading] = React.useState(false);
     return (
         <View
-            // onPress={() => navigation.navigate("ProductInfoScreen", { item })}
+        // onPress={() => navigation.navigate("ProductInfoScreen", { item })}
         >
             <View style={styles.container}>
-                <Image source={{ uri: image?.includes('http') ? image : "https://www.leukerecepten.nl/wp-content/uploads/2020/09/kinder-bueno-taart_b.jpg" }} style={styles.image} />
+                <TouchableOpacity style={{ width: "15%",}} onPress={() => navigation.navigate("ProductInfoScreen", { item, index })}>
+                    <Image source={{ uri: image?.includes('http') ? image : "https://www.leukerecepten.nl/wp-content/uploads/2020/09/kinder-bueno-taart_b.jpg" }} style={styles.image} />
+                </TouchableOpacity>
                 <View style={styles.test}>
-                    <View>
-                        <Text>{name}</Text>
+                    <TouchableOpacity onPress={() => navigation.navigate("ProductInfoScreen", { item, index })}>
+                        <Text>{name?.slice(0,15)}</Text>
                         <Text>€ {price}</Text>
-                    </View>
+                    </TouchableOpacity>
+                    <View style={{width:'40%',flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
                     <TouchableOpacity
                         disabled={likeLoading}
-                        onPress={()=>{
+                        onPress={() => {
                             setLikeLoading(true)
-                            onPressHeart(item,index,(result)=>{
+                            onPressHeart(item, index, (result) => {
                                 setLikeLoading(false);
-                                if(!result){
-                                    console.log('error result',result);
-                                }else{
-                                    console.log('success result',result);
+                                if (!result) {
+                                    console.log('error result', result);
+                                } else {
+                                    console.log('success result', result);
                                 }
                             });
                         }}
                         style={styles.touchableOpacity}
                     >
-                        <Icon name="heart" color={item?.like_inf?.length>0? 'red':'black'} size={20} />
+                        <Icon name="heart" color={item?.like_inf?.length > 0 ? 'red' : 'black'} size={20} />
                     </TouchableOpacity>
                     <TouchableOpacity
-                        onPress={()=>onPressCart(index)}
+                        onPress={() => onPressCart(index)}
                         style={styles.touchableOpacity}
                     >
-                        <Icon name="shopping-cart" color={item?.selected? colors.primary:colors.headerTitle}  size={20} />
+                        <Icon name="shopping-cart" color={item?.selected ? colors.primary : colors.headerTitle} size={20} />
                     </TouchableOpacity>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate("ProductInfoScreen", { item, index})}
+                        onPress={() => navigation.navigate("ProductInfoScreen", { item, index })}
                         style={styles.touchableOpacity}
                     >
                         <Icon name="info-circle" style={styles.icon} size={20} />
                     </TouchableOpacity>
+                    </View>
                 </View>
             </View>
         </View>
@@ -62,35 +66,33 @@ export default ProductItem;
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      flexDirection: "row",
-      height: 50,
-      borderColor: "black",
-      borderWidth: 2,
-      borderRadius: 10,
-      padding: 1,
-      marginBottom: 5,
-      marginTop: 5,
+        flex: 1,
+        flexDirection: "row",
+        height: 50,
+        borderColor: "black",
+        borderWidth: 2,
+        borderRadius: 10,
+        padding: 1,
+        marginBottom: 5,
+        marginTop: 5,
     },
     image: {
-      height: "98%",
-      width: "15%",
-      borderRadius: 10,
+        height: "98%",
+        borderRadius: 10,
     },
     test: {
-      flexDirection: "row",
-      backgroundColor: "yellow",
-      justifyContent: "space-between",
-      width: "85%",
-      paddingLeft: 10,
+        flexDirection: "row",
+        backgroundColor: "yellow",
+        justifyContent: "space-between",
+        width: "85%",
+        paddingLeft: 10,
     },
     icon: {
-      color: colors.dimgray,
-      paddingRight: 10,
+        color: colors.dimgray,
+        paddingRight: 10,
     },
     touchableOpacity: {
-      justifyContent: "center",
-      alignSelf: "center",
+        justifyContent: "center",
+        alignSelf: "center",
     },
-  });
-  
+});

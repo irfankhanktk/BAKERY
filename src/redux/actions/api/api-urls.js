@@ -10,7 +10,7 @@ export const urls={
         get_by_id:'categorie/',
     },
     order:{
-        get_orders:'order',
+        order:'order',
     },
     product:{
         products:'product/all_products/',
