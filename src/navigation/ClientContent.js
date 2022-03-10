@@ -4,8 +4,10 @@ import { Drawer } from "react-native-paper";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { CommonActions } from '@react-navigation/native';
 
 import colors from "../services/colors";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ClientContent = ({ props }) => {
   const navigation = useNavigation();
@@ -74,6 +76,33 @@ const ClientContent = ({ props }) => {
             )}
             onPress={() => {
               navigation.navigate("InfoScreen");
+            }}
+          />
+          <DrawerItem
+            label="Log Out"
+            icon={() => (
+              <MaterialCommunityIcons
+                name="information"
+                size={16}
+                color={colors.appRedLight}
+              />
+            )}
+            onPress={() => {
+              AsyncStorage.clear();
+
+              navigation.dispatch(
+                CommonActions.reset({
+                  index: 1,
+                  routes: [
+                    { name: 'Login' },
+                    // {
+                    //   name: 'Profile',
+                    //   params: { user: 'jane' },
+                    // },
+                  ],
+                })
+              );
+              // navigation.navigate("InfoScreen");
             }}
           />
         </Drawer.Section>

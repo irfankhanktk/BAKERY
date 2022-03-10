@@ -69,8 +69,7 @@ const ProductScreen = (props) => {
   );
 };
 
-// export default ProductScreen;
-// export default CategoryScreen;
+
 const mapStateToProps = (store) => ({
   products: store.product.products,
   user: store.auth.user,

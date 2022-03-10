@@ -17,7 +17,7 @@ import OrdersScreen from "../screens/admin/OrdersScreen";
 import CategoryScreen from "../screens/admin/CategoryScreen";
 import ProductsScreen from "../screens/admin/ProductsScreen";
 import SettingScreen from "../screens/admin/SettingScreen";
-import { useNavigation } from "@react-navigation/native";
+import { CommonActions, useNavigation } from "@react-navigation/native";
 
 const Tab = createBottomTabNavigator();
 
@@ -38,7 +38,21 @@ const TabNavigation = (props) => {
   const logout = (props) => {
     AsyncStorage.removeItem("token")
       .then(() => {
-        props.navigation.replace("Login");
+        // props.navigation.replace("Login");
+        AsyncStorage.clear();
+
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 1,
+            routes: [
+              { name: 'Login' },
+              // {
+              //   name: 'Profile',
+              //   params: { user: 'jane' },
+              // },
+            ],
+          })
+        );
       })
       .catch((err) => console.log(err));
   };

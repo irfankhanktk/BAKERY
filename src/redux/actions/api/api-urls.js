@@ -1,6 +1,6 @@
 export const urls={
-    // base_url:'https://order-node-server.herokuapp.com/api/',
-    base_url:'http://192.168.100.3:4000/api/',
+    base_url:'https://order-node-server.herokuapp.com/api/',
+    // base_url:'http://192.168.100.3:4000/api/',
     auth:{
         signin:'users/login',
         register:'users/register',

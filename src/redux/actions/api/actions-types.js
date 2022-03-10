@@ -2,3 +2,5 @@ export const SET_LOGOUT='SET_LOGOUT'
 export const SET_CATEGORIES='SET_CATEGORIES'
 export const SET_PRODUCTS='SET_PRODUCTS'
 export const SET_CART_PRODUCTS='SET_CART_PRODUCTS'
+//admin
+export const SET_ORDERS='SET_ORDERS'

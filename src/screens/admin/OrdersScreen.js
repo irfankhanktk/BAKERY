@@ -5,59 +5,36 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import ScreenList from "../../components/ScreenList";
 import AppTouchableOpacity from "../../components/AppTouchableOpacity";
+import { connect } from "react-redux";
+import BAKERY_API from "../../redux/actions/api/api-calls";
 
-const arr = [
-  {
-    id: 1,
-    clientName: "Client name C",
-    clientAdress: "Client address",
-    clientPostalCode: "Client postal code",
-    clientResidence: "Client Residence",
-    arrayFromOrder: "array from order",
-    totalPrice: "total price",
-  },
-  {
-    id: 2,
-    clientName: "Client name B",
-    clientAdress: "Client address",
-    clientPostalCode: "Client postal code",
-    clientResidence: "Client Residence",
-    arrayFromOrder: "array from order",
-    totalPrice: "total price",
-  },
-  {
-    id: 3,
-    clientName: "Client name A",
-    clientAdress: "Client address",
-    clientPostalCode: "Client postal code",
-    clientResidence: "Client Residence",
-    arrayFromOrder: "array from order",
-    totalPrice: "total price",
-  },
-];
 
-const OrdersScreen = ({ navigation }) => {
-  const loadProfile = async () => {
-    const token = await AsyncStorage.getItem("token");
-    if (!token) {
-      navigation.navigate("Login");
+
+const OrdersScreen = (props) => {
+  const { navigation, orders, fetchOrders } = props
+  const loadOrders = async () => {
+    try {
+      await fetchOrders();
+    } catch (error) {
+        console.log(error);
     }
   };
+
   useEffect(() => {
-    loadProfile();
+    loadOrders();
   }, []);
 
   return (
     <ScreenList title={"Order screen DO LATER !!!"}>
       <FlatList
-        data={arr.sort((a, b) => a.clientName.localeCompare(b.clientName))}
-        keyExtractor={(item) => item.id.toString()}
+        data={orders.sort((a, b) => a.clientName.localeCompare(b.clientName))}
+        keyExtractor={(item,index) => index.toString()}
         renderItem={({ item }) => (
           <AppTouchableOpacity
             info={item.clientName}
             onPress={() =>
               navigation.navigate("OrderDetailScreen", {
-                id: item.id,
+                order_id: item._id,
               })
             }
           />
@@ -67,4 +44,15 @@ const OrdersScreen = ({ navigation }) => {
   );
 };
 
-export default OrdersScreen;
+// export default OrdersScreen;
+
+const mapStateToProps = (store) => ({
+  orders: store.order.orders,
+});
+
+const mapDispatchToProps = {
+  fetchOrders: () => BAKERY_API.fetchOrders(),
+  // likeProduct: (product_id,email,bool,index) => BAKERY_API.likeProduct(product_id,email,bool,index),
+  // setProducts: (produtcs) => BAKERY_API.setProducts(produtcs),
+};
+export default connect(mapStateToProps, mapDispatchToProps)(OrdersScreen);

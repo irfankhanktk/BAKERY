@@ -27,12 +27,12 @@ const SERVICES = {
       }
     }
   },
-  _capitalizeFirst:(str)=>(str.charAt(0).toUpperCase() + str.slice(1)),
+  _capitalizeFirst: (str) => (str.charAt(0).toUpperCase() + str.slice(1)),
   _returnStringify: (data) => JSON.stringify(data),
-  _share:async (description = '',url) => {
+  _share: async (description = '', url) => {
     try {
       const result = await Share.share({
-        message:description?description:url,
+        message: description ? description : url,
         url: url,
       });
       if (result.action === Share.sharedAction) {
@@ -56,6 +56,14 @@ const SERVICES = {
       }
     return str.join("&");
   },
+  handleSearchByKey: (lists = [], search_key, search_term, setFilterLists) => {
+    const copy = lists.filter(e => {
+      console.log('e[search_key]::',e[search_key]);
+      return (e[search_key]?.toLowerCase()?.includes(search_term?.toLowerCase()));
+    });
+    console.log('copy:::',copy);
+    setFilterLists(copy);
+  }
 };
 
 export default SERVICES;

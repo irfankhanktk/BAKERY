@@ -14,20 +14,7 @@ import { mvs } from "../../services/metrices";
 const windowWidth = Dimensions.get("window").width;
 
 // database all categories
-const arr = [
-  {
-    id: 1,
-    category: "Bread",
-    image:
-      "https://www.maxvandaag.nl/wp-content/uploads/2022/08/brooddikmaker-shutterstock-1100-400-890x400.jpg",
-  },
-  {
-    id: 2,
-    category: "Cake",
-    image:
-      "https://www.leukerecepten.nl/wp-content/uploads/2020/09/kinder-bueno-taart_b.jpg",
-  },
-];
+
 
 //navigation meegeven voor drawer
 const CategoryScreen = (props) => {
@@ -81,7 +68,7 @@ const mapStateToProps = (store) => ({
 });
 
 const mapDispatchToProps = {
-  fetchCategories: (user_id) => BAKERY_API.fetchCategories(user_id),
+  fetchCategories: () => BAKERY_API.fetchCategories(),
 };
 export default connect(mapStateToProps, mapDispatchToProps)(CategoryScreen);
 const styles = StyleSheet.create({

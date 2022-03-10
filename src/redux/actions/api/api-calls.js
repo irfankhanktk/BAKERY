@@ -34,6 +34,22 @@ const fetchCategories = () => {
     }
   };
 };
+// delete categoy-id
+const removeCategory = (category_id) => {
+  return async (dispatch, getState) => {
+    try {
+      const response = await API_REQUESTS.getData(`${urls.categories.get_by_id}/${category_id}`);
+      console.log('res::', response?.data);
+      // dispatch({
+      //   type: Actions.SET_CATEGORIES,
+      //   payload: response?.data,
+      // });
+      return response?.data;
+    } catch (error) {
+      throw new Error(SERVICES._returnError(error));
+    }
+  };
+};
 const postOrder = (payload) => {
   return async (dispatch, getState) => {
     try {
@@ -95,7 +111,39 @@ const likeProduct = (product_id,email,is_like=true,index) => {
   };
 };
 
+// Admin side 
+const fetchOrders = () => {
+  return async (dispatch, getState) => {
+    try {
+      const response = await API_REQUESTS.getData(`${urls.order.order}`);
+      console.log('res of orders::', response?.data);
+      // dispatch({
+      //   type: Actions.SET_ORDERS,
+      //   payload: response?.data,
+      // });
+    } catch (error) {
+      console.log('error:::',error);
+      throw new Error(SERVICES._returnError(error));
+    }
+  };
+};
 
+const fetchOrderDetails = (order_id) => {
+  return async (dispatch, getState) => {
+    try {
+      const response = await API_REQUESTS.getData(`${urls.order.order}/${order_id}`);
+      console.log('res of orders::', response?.data);
+      // dispatch({
+      //   type: Actions.SET_ORDERS,
+      //   payload: response?.data,
+      // });
+      return response?.data;
+    } catch (error) {
+      console.log('error:::',error);
+      throw new Error(SERVICES._returnError(error));
+    }
+  };
+};
 const BAKERY_API = {
   // createPost,
   setProducts,
@@ -104,6 +152,10 @@ const BAKERY_API = {
   likeProduct,
   postOrder,
   // refreshToken,
+  //admin
+  fetchOrders,
+  fetchOrderDetails,
+  removeCategory,
 };
 
 export default BAKERY_API;

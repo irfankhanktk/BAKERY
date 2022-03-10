@@ -23,7 +23,7 @@ const SplashScreen = ({navigation}) => {
                     navigation.replace("ClientNavigation");
                 } else navigation.replace("AdminNavigation");
             }else{
-                
+                navigation.replace("Login");
             }
         } catch (error) {
 
